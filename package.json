@@ -1,0 +1,24 @@
+{
+  "author": "Jed Schmidt <tr@nslator.jp> (http://jed.is)",
+  "name": "locale",
+  "description": "Browser locale negotiation for node.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jed/locale",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jed/locale.git"
+  },
+  "main": "./lib",
+  "scripts": {
+    "test": "node ./lib/test.js",
+    "prepublish": "coffee -o lib/ -c src/"
+  },
+  "engines": {
+    "node": "~0.6.7"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "coffee-script": "~1.2.0",
+    "express": "~2.5.6"
+  }
+}
