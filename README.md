@@ -55,7 +55,7 @@ API
 
 ### locale(supportedLocales)
 
-This module exports a function that can be used as Express/Connect middleware. It takes one argument, a list of supported locales.
+This module exports a function that can be used as Express/Connect middleware. It takes one argument, a list of supported locales, and adds a `locale` property to incoming HTTP requests, reflecting the most appropriate locale determined using the `best` method described below.
 
 ### new locale.Locale(languageTag)
 
