@@ -1,6 +1,6 @@
 var http = require("http")
   , express = require("express")
-  , locale = require("locale")
+  , locale = require("../lib")
   , supported = ["en", "en_US", "ja"]
   , app = express.createServer(locale(supported))
 

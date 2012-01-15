@@ -1,5 +1,5 @@
 var http = require("http")
-  , locale = require("locale")
+  , locale = require("../lib")
   , supported = new locale.Locales(["en", "en_US", "ja"])
 
 http.createServer(function(req, res) {

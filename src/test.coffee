@@ -1,7 +1,7 @@
 http    = require "http"
 assert  = require "assert"
 express = require "express"
-locale  = require "locale"
+locale  = require "./"
 
 app = do express.createServer
 
