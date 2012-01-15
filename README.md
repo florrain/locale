@@ -1,6 +1,8 @@
 locale
 ======
 
+[![Build Status](https://secure.travis-ci.org/jed/locale.png)](http://travis-ci.org/jed/locale)
+
 locale is a [node.js][node] module for negotiating HTTP locales for incoming browser requests. It can be used as a standalone module for HTTP or as [Express][express]/[Connect][connect] middleware.
 
 Examples
