@@ -52,6 +52,8 @@ Install
 
     $ npm install locale
 
+(Note that although this repo in CoffeeScript, the npm repo is pre-compiled to JavaScript and has no dependencies.)
+
 API
 ---
 
