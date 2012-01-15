@@ -52,7 +52,7 @@ Install
 
     $ npm install locale
 
-(Note that although this repo in CoffeeScript, the npm repo is pre-compiled to JavaScript and has no dependencies.)
+(Note that although this repo is CoffeeScript, the actual npm library is pre-compiled to pure JavaScript and has no run-time dependencies.)
 
 API
 ---
