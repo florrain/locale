@@ -6,7 +6,7 @@ app = (supported) ->
   (req, res, next) ->
     locales = new Locales req.headers["accept-language"]
 
-    req.locale = locales.best supported
+    req.locale = String locales.best supported
     do next
 
 class app.Locale
