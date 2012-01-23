@@ -3,7 +3,9 @@ locale
 
 [![Build Status](https://secure.travis-ci.org/jed/locale.png)](http://travis-ci.org/jed/locale)
 
-locale is a [node.js][node] module for negotiating HTTP locales for incoming browser requests. It can be used as a standalone module for HTTP or as [Express][express]/[Connect][connect] middleware.
+locale is a [node.js][node] module for negotiating HTTP locales for incoming browser requests. It can be used as a standalone module for HTTP or as [Express][express]/[Connect][connect] middleware, or as the server component for an in-browser gettext implementation like [JED][JED].
+
+It works like this: you (optionally) tell it the languages you support, and it figures out the best one to use for each incoming request from a browser. So if you support `en`, `en_US`, `ja`, `kr`, and `zh_TW`, and a request comes in that accepts `en_UK` or `en`, locale will figure out that `en` is the best language to use.
 
 Examples
 --------
@@ -86,6 +88,7 @@ Send any questions or comments [here](http://twitter.com/jedschmidt).
 
 [node]: http://nodejs.org
 [express]: http://expressjs.com
-[connect]: http://senchalabs.github.com/connect/
+[JED]: http://slexaxton.github.com/Jed
+[connect]: http://senchalabs.github.com/connect
 [langtag]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.10
 [header]: http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.4
