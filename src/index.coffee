@@ -15,7 +15,8 @@ class app.Locale
   constructor: (str) ->
     return unless str
 
-    [language, country] = str.match /[a-z]+/gi
+    matches = str.match /[a-z]+/gi
+    [language, country] = matches? or ["en", "US"]
 
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
