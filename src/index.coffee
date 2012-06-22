@@ -4,7 +4,7 @@ app = (supported) ->
     do supported.index
 
   (req, res, next) ->
-    locales = new Locales req.headers["accept-language"]
+    locales = new Locales req.headers["accept-language"] or "en_US"
 
     req.locale = String locales.best supported
     do next
