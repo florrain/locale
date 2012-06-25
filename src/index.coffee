@@ -15,7 +15,11 @@ class app.Locale
   constructor: (str) ->
     return unless str
 
-    [language, country] = str.match /[a-z]+/gi
+    matches = str.match /[a-z]+/gi
+    if matches?
+        [language, country] = matches
+    else
+        [language, country] = Locale.default.match /[a-z]+/gi
 
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
