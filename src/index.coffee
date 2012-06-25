@@ -19,7 +19,7 @@ class app.Locale
     if matches?
         [language, country] = matches
     else
-        [language, country] = @default.match /[a-z]+/gi
+        [language, country] = Locale.default.match /[a-z]+/gi
 
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
