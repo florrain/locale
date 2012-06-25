@@ -16,7 +16,10 @@ class app.Locale
     return unless str
 
     matches = str.match /[a-z]+/gi
-    [language, country] = matches? or ["en", "US"]
+    if matches?
+        [language, country] = matches
+    else
+        [language, country] = @default.match /[a-z]+/gi
 
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
