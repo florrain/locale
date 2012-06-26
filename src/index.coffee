@@ -15,13 +15,15 @@ class app.Locale
   constructor: (str) ->
     return unless str
 
-    [language, country] = str.match /[a-z]+/gi
+    matches = str.match /[a-z]+/gi
+    [language, country] = matches if matches
 
-    @language = do language.toLowerCase
+    @language = do language.toLowerCase if language
     @country  = do country.toUpperCase if country
 
   serialize = ->
-    value = [@language]
+    value = []
+    value.push @language if @language
     value.push @country if @country
 
     value.join "_"
@@ -65,7 +67,7 @@ class app.Locales
     index = do locales.index
 
     for item in @
-      return item if index[item]
+      return item if index[item] and item.language
 
     locale
 
