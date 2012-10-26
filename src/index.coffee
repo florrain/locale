@@ -13,9 +13,9 @@ class app.Locale
   @default: new Locale process.env.LANG or "en_US"
 
   constructor: (str) ->
-    return unless str
+    return unless match = str?.match /[a-z]+/gi
 
-    [language, country] = str.match /[a-z]+/gi
+    [language, country] = match
 
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
