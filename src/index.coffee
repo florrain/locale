@@ -65,7 +65,10 @@ class app.Locales
     index = do locales.index
 
     for item in @
-      return item if index[item]
+      if index[item]
+        return item 
+      else 
+        if index[item.language] then locale = item
 
     locale
 
