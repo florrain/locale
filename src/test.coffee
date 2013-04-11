@@ -24,11 +24,21 @@ tests = [
       do next
 
   (next) ->
-    http.get port: 8000, headers: "Accept-Language": "en-GB", (res) ->
+    http.get port: 8000, headers: "Accept-Language": "es-ES", (res) ->
       assert.equal(
         res.headers["content-language"]
         defaultLocale
         "Unsupported languages should fallback to default."
+      )
+
+      do next
+
+  (next) ->
+    http.get port: 8000, headers: "Accept-Language": "en-GB", (res) ->
+      assert.equal(
+        res.headers["content-language"]
+        "en"
+        "Unsupported country should fallback to countryless language"
       )
 
       do next

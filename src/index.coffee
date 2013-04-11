@@ -65,7 +65,10 @@ class app.Locales
     index = do locales.index
 
     for item in @
-      return item if index[item]
+      if index[item]
+        return item
+      else
+        if index[item.language] then locale = new Locale item.language
 
     locale
 
@@ -73,7 +76,7 @@ class app.Locales
     [@...]
 
   toJSON: serialize
-  
+
   toString: ->
     String do @toJSON
 
