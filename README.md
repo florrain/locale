@@ -77,7 +77,14 @@ The Locales constructor takes a string compliant with the [`Accept-Language` HTT
 
 ### locales.best([supportedLocales])
 
-This method takes the target locale and compares it against the optionally provided list of supported locales, and returns the most appropriate locale based on the quality scores of the target locale. If no match exists, the default locale is returned.
+This method takes the target locale and compares it against the optionally provided list of supported locales, and returns the most appropriate locale based on the quality scores of the target locale.  If no exact match exists (i.e. language+country) then it will fallback to `language` if supported, or if the language isn't supported it will return the default locale.
+
+    supported = new locale.Locales(['en', 'en_US']);
+    (new locale.Locales('en')).best(supported).toString();     // 'en'
+    (new locale.Locales('en_GB')).best(supported).toString();  // 'en'
+    (new locale.Locales('en_US')).best(supported).toString();  // 'en_US'
+    (new locale.Locales('jp')).best(supported);                // locale.Locale["default"]
+
 
 Copyright
 ---------
