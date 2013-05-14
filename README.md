@@ -34,7 +34,9 @@ var http = require("http")
   , express = require("express")
   , locale = require("locale")
   , supported = ["en", "en_US", "ja"]
-  , app = express.createServer(locale(supported))
+  , app = express()
+
+app.use(locale(supported))
 
 app.get("/", function(req, res) {
   res.header("Content-Type", "text/plain")
