@@ -3,7 +3,7 @@ assert  = require "assert"
 express = require "express"
 locale  = require "./"
 
-app = do express.createServer
+app = do express
 
 defaultLocale = locale.Locale.default
 
@@ -61,6 +61,7 @@ test = ->
 
   else
     console.log "All #{testCount} tests successful."
-    do app.close
+    do server.close
+    do process.exit 0
 
-app.listen 8000, test
+server = app.listen 8000, test
