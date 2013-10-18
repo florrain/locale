@@ -20,5 +20,8 @@
   "devDependencies": {
     "coffee-script": "~1.6.0",
     "express": "~3.0.0"
-  }
+  },
+  "contributors": [
+    "D. Stuart Freeman <stuart.freeman@et.gatech.edu> (https://github.com/stuartf)"
+  ]
 }
