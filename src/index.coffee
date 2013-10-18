@@ -24,7 +24,10 @@ class app.Locale
     value = [@language]
     value.push @country if @country
 
-    value.join "_"
+    if @language
+        return value.join "_"
+    else
+        return null
 
   toString: serialize
   toJSON: serialize
