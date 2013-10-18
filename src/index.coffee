@@ -70,8 +70,10 @@ class app.Locales
     for item in @
       if index[item]
         return item
+      else if index[item.language] then locale = new Locale item.language
       else
-        if index[item.language] then locale = new Locale item.language
+        for l in locales
+          if l.language == item.language then return l
 
     locale
 

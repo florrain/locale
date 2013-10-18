@@ -7,7 +7,7 @@ app = do express
 
 defaultLocale = locale.Locale.default
 
-app.use locale ["en-US", "en", "ja"]
+app.use locale ["en-US", "en", "ja", "da-DK"]
 app.get "/", (req, res) ->
   res.header "content-language", req.locale
   do res.end
@@ -49,6 +49,16 @@ tests = [
         res.headers["content-language"]
         "ja"
         "Highest quality language supported should be used, regardless of order."
+      )
+
+      do next
+
+  (next) ->
+    http.get port: 8000, headers: "Accept-Language": "da", (res) ->
+      assert.equal(
+        res.headers["content-language"]
+        "da_DK"
+        "Countryless request can fallback to countried language"
       )
 
       do next
