@@ -62,6 +62,16 @@ tests = [
       )
 
       do next
+
+  (next) ->
+    http.get port: 8000, headers: "Accept-Language": "ja;q=.8, da", (res) ->
+      assert.equal(
+        res.headers["content-language"]
+        "da_DK"
+        "Countryless request falls back to countried language even when there's a lower quality exact match"
+      )
+
+      do next
 ]
 
 testCount = tests.length
