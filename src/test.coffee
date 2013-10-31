@@ -3,85 +3,70 @@ assert  = require "assert"
 express = require "express"
 locale  = require "./"
 
-app = do express
-
+server = null
 defaultLocale = locale.Locale.default
 
-app.use locale ["en-US", "en", "ja", "da-DK"]
-app.get "/", (req, res) ->
-  res.header "content-language", req.locale
-  do res.end
+before (callback) ->
+  app = do express
 
-tests = [
-  (next) ->
+  app.use locale ["en-US", "en", "ja", "da-DK"]
+  app.get "/", (req, res) ->
+    res.header "content-language", req.locale
+    do res.end
+  server = app.listen 8000, callback
+
+describe "Defaults", ->
+  it "should use the environment language as default.", (callback) ->
     http.get port: 8000, (res) ->
       assert.equal(
         res.headers["content-language"]
         defaultLocale
-        "Environment language should be used as default."
       )
+      callback()
 
-      do next
-
-  (next) ->
+  it "should fallback to the default for unsupported languages.", (callback) ->
     http.get port: 8000, headers: "Accept-Language": "es-ES", (res) ->
       assert.equal(
         res.headers["content-language"]
         defaultLocale
-        "Unsupported languages should fallback to default."
       )
+      callback()
 
-      do next
-
-  (next) ->
+describe "Priority", ->
+  it "should fallback to a more general language if a country specific language isn't available.", (callback) ->
     http.get port: 8000, headers: "Accept-Language": "en-GB", (res) ->
       assert.equal(
         res.headers["content-language"]
         "en"
         "Unsupported country should fallback to countryless language"
       )
+      callback()
 
-      do next
-
-  (next) ->
+  it "should use the highest quality language supported, regardless of order.", (callback) ->
     http.get port: 8000, headers: "Accept-Language": "en;q=.8, ja", (res) ->
       assert.equal(
         res.headers["content-language"]
         "ja"
         "Highest quality language supported should be used, regardless of order."
       )
+      callback()
 
-      do next
-
-  (next) ->
+  it "should use a country specific language when an unsupported general language is requested", (callback) ->
     http.get port: 8000, headers: "Accept-Language": "da", (res) ->
       assert.equal(
         res.headers["content-language"]
         "da_DK"
-        "Countryless request can fallback to countried language"
       )
+      callback()
 
-      do next
-
-  (next) ->
+  it "should fallback to a country specific language even when there's a lower quality exact match", (callback) ->
     http.get port: 8000, headers: "Accept-Language": "ja;q=.8, da", (res) ->
       assert.equal(
         res.headers["content-language"]
         "da_DK"
-        "Countryless request falls back to countried language even when there's a lower quality exact match"
       )
+      callback()
 
-      do next
-]
-
-testCount = tests.length
-
-test = ->
-  if next = do tests.shift then next test
-
-  else
-    console.log "All #{testCount} tests successful."
-    do server.close
-    do process.exit 0
-
-server = app.listen 8000, test
+after ->
+  do server.close
+  do process.exit 0
