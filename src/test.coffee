@@ -11,8 +11,9 @@ before (callback) ->
 
   app.use locale ["en-US", "en", "ja", "da-DK"]
   app.get "/", (req, res) ->
-    res.header "content-language", req.locale
-    do res.end
+    res.set "content-language", req.locale
+    res.set "Connection", "close"
+    res.send(200)
   server = app.listen 8000, callback
 
 describe "Defaults", ->
