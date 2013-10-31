@@ -2,7 +2,7 @@
   "author": "Jed Schmidt <tr@nslator.jp> (http://jed.is)",
   "name": "locale",
   "description": "Browser locale negotiation for node.js",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "homepage": "https://github.com/jed/locale",
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
     "coffee-script": "~1.6.0",
     "express": "~3.0.0",
     "mocha": "~1.13.0"
-  }
+  },
+  "contributors": [
+    "D. Stuart Freeman <stuart.freeman@et.gatech.edu> (https://github.com/stuartf)"
+  ]
 }
