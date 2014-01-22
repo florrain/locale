@@ -9,7 +9,7 @@ defaultLocale = locale.Locale.default
 before (callback) ->
   app = do express
 
-  app.use locale ["en-US", "en", "ja", "da-DK"]
+  app.use locale ["en-US", "fr", "en", "ja", "da-DK"]
   app.get "/", (req, res) ->
     res.set "content-language", req.locale
     res.set "Connection", "close"
@@ -50,6 +50,13 @@ describe "Priority", ->
         "ja"
         "Highest quality language supported should be used, regardless of order."
       )
+    http.get port: 8000, headers: "Accept-Language": "fr-FR, ja-JA;q=0.5", (res) ->
+      assert.equal(
+        res.headers["content-language"]
+        "fr"
+        "Highest quality language supported should be used, regardless of order."
+      )
+
       callback()
 
   it "should use a country specific language when an unsupported general language is requested", (callback) ->
