@@ -25,9 +25,9 @@ class app.Locale
     value.push @country if @country
 
     if @language
-        return value.join "_"
+      return value.join "_"
     else
-        return null
+      return null
 
   toString: serialize
   toJSON: serialize
@@ -39,7 +39,7 @@ class app.Locales
   sort: Array::sort
   push: Array::push
 
-  constructor: (str) ->
+  constructor: (str, @default) ->
     return unless str
 
     for item in (String str).split ","
@@ -60,7 +60,7 @@ class app.Locales
     @_index
 
   best: (locales) ->
-    locale = Locale.default
+    locale = @def or Locale.default
 
     unless locales
       return @[0] or locale

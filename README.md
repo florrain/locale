@@ -71,21 +71,21 @@ The Locale constructor takes a [language tag][langtag] string consisting of an I
 
 ### locale.Locale["default"]
 
-The default locale for the environment, as parsed from `process.env.LANG`. This is used as the fallback when the best language is calculated from the intersection of requested and supported locales.
+The default locale for the environment, as parsed from `process.env.LANG`. This is used as the fallback when the best language is calculated from the intersection of requested and supported locales and supported languages has not default.
 
-### locales = new locale.Locales(acceptLanguageHeader)
+### locales = new locale.Locales(acceptLanguageHeader, default)
 
-The Locales constructor takes a string compliant with the [`Accept-Language` HTTP header][header], and returns a list of acceptible locales, optionally sorted in descending order by quality score.
+The Locales constructor takes a string compliant with the [`Accept-Language` HTTP header][header], and returns a list of acceptible locales, optionally sorted in descending order by quality score. Second argument is optional default value used as the fallback when the best language is calculated. Otherwise locale.Locale["default"] is used as fallback.
 
 ### locales.best([supportedLocales])
 
 This method takes the target locale and compares it against the optionally provided list of supported locales, and returns the most appropriate locale based on the quality scores of the target locale.  If no exact match exists (i.e. language+country) then it will fallback to `language` if supported, or if the language isn't supported it will return the default locale.
 
-    supported = new locale.Locales(['en', 'en_US']);
+    supported = new locale.Locales(['en', 'en_US'], 'en');
     (new locale.Locales('en')).best(supported).toString();     // 'en'
     (new locale.Locales('en_GB')).best(supported).toString();  // 'en'
     (new locale.Locales('en_US')).best(supported).toString();  // 'en_US'
-    (new locale.Locales('jp')).best(supported);                // locale.Locale["default"]
+    (new locale.Locales('jp')).best(supported);                // supported.default || locale.Locale["default"]
 
 
 Copyright
