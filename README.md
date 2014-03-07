@@ -75,7 +75,7 @@ The default locale for the environment, as parsed from `process.env.LANG`. This 
 
 ### locales = new locale.Locales(acceptLanguageHeader, default)
 
-The Locales constructor takes a string compliant with the [`Accept-Language` HTTP header][header], and returns a list of acceptible locales, optionally sorted in descending order by quality score. Second argument is optional default value used as the fallback when the best language is calculated.
+The Locales constructor takes a string compliant with the [`Accept-Language` HTTP header][header], and returns a list of acceptible locales, optionally sorted in descending order by quality score. Second argument is optional default value used as the fallback when the best language is calculated. Otherwise locale.Locale["default"] is used as fallback.
 
 ### locales.best([supportedLocales])
 
