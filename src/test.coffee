@@ -36,6 +36,15 @@ describe "Defaults", ->
       assert.equal(true, !!res.headers["defaulted"])
       callback()
 
+  it "should fallback to the instance default for unsupported languages if instance default is defined.", (callback) ->
+    instanceDefault = 'SomeFakeLanguage-NotReal'
+    supportedLocales = new locale.Locales ["en-US", "fr", "fr-CA", "en", "ja", "de", "da-DK"], instanceDefault
+    assert.equal(
+      ((new locale.Locales "es-ES").best supportedLocales).toString()
+      instanceDefault
+    )
+    callback()
+
 describe "Priority", ->
   it "should fallback to a more general language if a country specific language isn't available.", (callback) ->
     http.get port: 8001, headers: "Accept-Language": "en-GB", (res) ->
