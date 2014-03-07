@@ -1,6 +1,6 @@
-app = (supported) ->
+app = (supported, def) ->
   unless supported instanceof Locales
-    supported = new Locales supported
+    supported = new Locales supported, def
     do supported.index
 
   (req, res, next) ->
@@ -29,9 +29,9 @@ class app.Locale
 
   serialize = ->
     if @language
-        return @code
+      return @code
     else
-        return null
+      return null
 
   toString: serialize
   toJSON: serialize
@@ -43,7 +43,10 @@ class app.Locales
   sort: Array::sort
   push: Array::push
 
-  constructor: (str) ->
+  constructor: (str, def) ->
+    if def
+      @default = new Locale def
+
     return unless str
 
     for item in (String str).split ","
@@ -70,6 +73,8 @@ class app.Locales
       return r
 
     locale = Locale.default
+    if locales and locales.default
+      locale = locales.default
     locale.defaulted = true
 
     unless locales
