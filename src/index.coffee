@@ -1,6 +1,6 @@
-app = (supported) ->
+app = (supported, def) ->
   unless supported instanceof Locales
-    supported = new Locales supported
+    supported = new Locales supported, def
     do supported.index
 
   (req, res, next) ->
@@ -60,7 +60,10 @@ class app.Locales
     @_index
 
   best: (locales) ->
-    locale = @def or Locale.default
+
+    locale = Locale.default
+    if locales and locales.default
+      locale = locales.default
 
     unless locales
       return @[0] or locale
