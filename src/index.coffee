@@ -39,7 +39,10 @@ class app.Locales
   sort: Array::sort
   push: Array::push
 
-  constructor: (str, @default) ->
+  constructor: (str, def) ->
+    if def
+      @default = new Locale def
+
     return unless str
 
     for item in (String str).split ","

@@ -33,11 +33,11 @@ describe "Defaults", ->
       )
       callback()
 
-  it "should fallback to the instance default for unsupported languages.", (callback) ->
-    instanceDefault = 'en-GB'
+  it "should fallback to the instance default for unsupported languages if instance default is defined.", (callback) ->
+    instanceDefault = 'en_GB'
     supportedLocales = new locale.Locales ["da-DK"], instanceDefault
     assert.equal(
-      (new locale.Locales "cs,en-US;q=0.8,en;q=0.6").best supportedLocales
+      ((new locale.Locales "cs,en-US;q=0.8,en;q=0.6").best supportedLocales).toString()
       instanceDefault
     )
     callback()
