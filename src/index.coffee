@@ -50,7 +50,7 @@ class app.Locales
 
       @push locale
 
-    @sort (a, b) -> a.score < b.score
+    @sort (a, b) -> b.score - a.score
 
   index: ->
     unless @_index
