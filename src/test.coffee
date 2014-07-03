@@ -59,7 +59,7 @@ describe "Priority", ->
     http.get port: 8000, headers: "Accept-Language": "en-US,en;q=0.93,es-ES;q=0.87,es;q=0.80,it-IT;q=0.73,it;q=0.67,de-DE;q=0.60,de;q=0.53,fr-FR;q=0.47,fr;q=0.40,ja;q=0.33,zh-Hans-CN;q=0.27,zh-Hans;q=0.20,ar-SA;q=0.13,ar;q=0.067", (res) ->
       assert.equal(
         res.headers["content-language"]
-        "en_US"
+        "en-US"
         "Highest quality language supported should be used, regardless of order."
       )
 
@@ -70,7 +70,7 @@ describe "Priority", ->
     http.get port: 8000, headers: "Accept-Language": "da", (res) ->
       assert.equal(
         res.headers["content-language"]
-        "da_DK"
+        "da-DK"
       )
       callback()
 
@@ -78,7 +78,7 @@ describe "Priority", ->
     http.get port: 8000, headers: "Accept-Language": "ja;q=.8, da", (res) ->
       assert.equal(
         res.headers["content-language"]
-        "da_DK"
+        "da-DK"
       )
       callback()
 

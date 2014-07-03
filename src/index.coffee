@@ -17,15 +17,13 @@ class app.Locale
 
     [language, country] = match
 
+    @code = str
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
 
   serialize = ->
-    value = [@language]
-    value.push @country if @country
-
     if @language
-        return value.join "_"
+        return @code
     else
         return null
 
