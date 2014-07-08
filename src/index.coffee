@@ -21,6 +21,10 @@ class app.Locale
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
 
+    normalized = [@language]
+    normalized.push @country if @country
+    @normalized = normalized.join "_"
+
   serialize = ->
     if @language
         return @code
@@ -53,7 +57,7 @@ class app.Locales
   index: ->
     unless @_index
       @_index = {}
-      @_index[locale] = yes for locale in @
+      @_index[locale.normalized] = idx for locale, idx in @
 
     @_index
 
@@ -66,9 +70,11 @@ class app.Locales
     index = do locales.index
 
     for item in @
-      if index[item]
-        return item
-      else if index[item.language] then return new Locale item.language
+      normalizedIndex = index[item.normalized]
+      languageIndex = index[item.language]
+
+      if normalizedIndex? then return locales[normalizedIndex]
+      else if languageIndex? then return locales[languageIndex]
       else
         for l in locales
           if l.language == item.language then return l
