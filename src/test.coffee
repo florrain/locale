@@ -9,7 +9,7 @@ defaultLocale = locale.Locale.default
 before (callback) ->
   app = do express
 
-  app.use locale ["en-US", "fr", "en", "ja", "de", "da-DK"]
+  app.use locale ["en-US", "fr", "fr-CA", "en", "ja", "de", "da-DK"]
   app.get "/", (req, res) ->
     res.set "content-language", req.locale
     res.set "Connection", "close"
@@ -79,6 +79,14 @@ describe "Priority", ->
       assert.equal(
         res.headers["content-language"]
         "da-DK"
+      )
+      callback()
+
+  it "should match country-specific language codes even when the separator is different", (callback) ->
+    http.get port: 8000, headers: "Accept-Language": "fr_CA", (res) ->
+      assert.equal(
+        res.headers["content-language"]
+        "fr-CA"
       )
       callback()
 
