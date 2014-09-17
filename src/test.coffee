@@ -12,6 +12,7 @@ before (callback) ->
   app.use locale ["en-US", "fr", "fr-CA", "en", "ja", "de", "da-DK"]
   app.get "/", (req, res) ->
     res.set "content-language", req.locale
+    res.set "defaulted", req.rawLocale.defaulted
     res.set "Connection", "close"
     res.send(200)
   server = app.listen 8000, callback
@@ -23,6 +24,7 @@ describe "Defaults", ->
         res.headers["content-language"]
         defaultLocale
       )
+      assert.equal(true, !!res.headers["defaulted"])
       callback()
 
   it "should fallback to the default for unsupported languages.", (callback) ->
@@ -31,6 +33,7 @@ describe "Defaults", ->
         res.headers["content-language"]
         defaultLocale
       )
+      assert.equal(true, !!res.headers["defaulted"])
       callback()
 
 describe "Priority", ->
@@ -41,6 +44,7 @@ describe "Priority", ->
         "en"
         "Unsupported country should fallback to countryless language"
       )
+      assert.equal(false, !res.headers["defaulted"])
       callback()
 
   it "should use the highest quality language supported, regardless of order.", (callback) ->
@@ -50,19 +54,23 @@ describe "Priority", ->
         "ja"
         "Highest quality language supported should be used, regardless of order."
       )
+      assert.equal(false, !res.headers["defaulted"])
+
     http.get port: 8000, headers: "Accept-Language": "fr-FR, ja-JA;q=0.5", (res) ->
       assert.equal(
         res.headers["content-language"]
         "fr"
         "Highest quality language supported should be used, regardless of order."
       )
+      assert.equal(false, !res.headers["defaulted"])
+
     http.get port: 8000, headers: "Accept-Language": "en-US,en;q=0.93,es-ES;q=0.87,es;q=0.80,it-IT;q=0.73,it;q=0.67,de-DE;q=0.60,de;q=0.53,fr-FR;q=0.47,fr;q=0.40,ja;q=0.33,zh-Hans-CN;q=0.27,zh-Hans;q=0.20,ar-SA;q=0.13,ar;q=0.067", (res) ->
       assert.equal(
         res.headers["content-language"]
         "en-US"
         "Highest quality language supported should be used, regardless of order."
       )
-
+      assert.equal(false, !res.headers["defaulted"])
 
       callback()
 
@@ -80,6 +88,7 @@ describe "Priority", ->
         res.headers["content-language"]
         "da-DK"
       )
+      assert.equal(false, !res.headers["defaulted"])
       callback()
 
   it "should match country-specific language codes even when the separator is different", (callback) ->
@@ -88,6 +97,7 @@ describe "Priority", ->
         res.headers["content-language"]
         "fr-CA"
       )
+      assert.equal(false, !res.headers["defaulted"])
       callback()
 
 after ->

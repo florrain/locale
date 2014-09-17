@@ -6,7 +6,9 @@ app = (supported) ->
   (req, res, next) ->
     locales = new Locales req.headers["accept-language"]
 
-    req.locale = String locales.best supported
+    bestLocale = locales.best supported
+    req.locale = String bestLocale
+    req.rawLocale = bestLocale
     do next
 
 class app.Locale
@@ -62,10 +64,19 @@ class app.Locales
     @_index
 
   best: (locales) ->
+    setLocale = (l) -> # When don't return the default
+      r = l
+      r.defaulted = false
+      return r
+
     locale = Locale.default
+    locale.defaulted = true
 
     unless locales
-      return @[0] or locale
+      if @[0]
+        locale = @[0]
+        locale.defaulted = true
+      return locale
 
     index = do locales.index
 
@@ -73,11 +84,11 @@ class app.Locales
       normalizedIndex = index[item.normalized]
       languageIndex = index[item.language]
 
-      if normalizedIndex? then return locales[normalizedIndex]
-      else if languageIndex? then return locales[languageIndex]
+      if normalizedIndex? then return setLocale(locales[normalizedIndex])
+      else if languageIndex? then return setLocale(locales[languageIndex])
       else
         for l in locales
-          if l.language == item.language then return l
+          if l.language == item.language then return setLocale(l)
 
     locale
 
