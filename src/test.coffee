@@ -74,19 +74,19 @@ describe "Priority", ->
 
       callback()
 
-  it "should use a country specific language when an unsupported general language is requested", (callback) ->
+  it "should not use a country specific language when an unsupported general language is requested", (callback) ->
     http.get port: 8001, headers: "Accept-Language": "da", (res) ->
       assert.equal(
         res.headers["content-language"]
-        "da-DK"
+        defaultLocale
       )
       callback()
 
-  it "should fallback to a country specific language even when there's a lower quality exact match", (callback) ->
+  it "should not fallback to a country specific language when there's an exact match", (callback) ->
     http.get port: 8001, headers: "Accept-Language": "ja;q=.8, da", (res) ->
       assert.equal(
         res.headers["content-language"]
-        "da-DK"
+        "ja"
       )
       assert.equal(false, !res.headers["defaulted"])
       callback()
