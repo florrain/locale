@@ -6,7 +6,9 @@ app = (supported, def) ->
   (req, res, next) ->
     locales = new Locales req.headers["accept-language"]
 
-    req.locale = String locales.best supported
+    bestLocale = locales.best supported
+    req.locale = String bestLocale
+    req.rawLocale = bestLocale
     do next
 
 class app.Locale
@@ -17,15 +19,17 @@ class app.Locale
 
     [language, country] = match
 
+    @code = str
     @language = do language.toLowerCase
     @country  = do country.toUpperCase if country
 
-  serialize = ->
-    value = [@language]
-    value.push @country if @country
+    normalized = [@language]
+    normalized.push @country if @country
+    @normalized = normalized.join "_"
 
+  serialize = ->
     if @language
-      return value.join "_"
+      return @code
     else
       return null
 
@@ -53,33 +57,43 @@ class app.Locales
 
       @push locale
 
-    @sort (a, b) -> a.score < b.score
+    @sort (a, b) -> b.score - a.score
 
   index: ->
     unless @_index
       @_index = {}
-      @_index[locale] = yes for locale in @
+      @_index[locale.normalized] = idx for locale, idx in @
 
     @_index
 
   best: (locales) ->
+    setLocale = (l) -> # When don't return the default
+      r = l
+      r.defaulted = false
+      return r
 
     locale = Locale.default
     if locales and locales.default
       locale = locales.default
+    locale.defaulted = true
 
     unless locales
-      return @[0] or locale
+      if @[0]
+        locale = @[0]
+        locale.defaulted = true
+      return locale
 
     index = do locales.index
 
     for item in @
-      if index[item]
-        return item
-      else if index[item.language] then return new Locale item.language
+      normalizedIndex = index[item.normalized]
+      languageIndex = index[item.language]
+
+      if normalizedIndex? then return setLocale(locales[normalizedIndex])
+      else if languageIndex? then return setLocale(locales[languageIndex])
       else
         for l in locales
-          if l.language == item.language then return l
+          if l.language == item.language then return setLocale(l)
 
     locale
 

@@ -2,7 +2,7 @@
   "author": "Jed Schmidt <tr@nslator.jp> (http://jed.is)",
   "name": "locale",
   "description": "Browser locale negotiation for node.js",
-  "version": "0.0.14",
+  "version": "0.0.21",
   "homepage": "https://github.com/jed/locale",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "prepublish": "coffee -o lib/ -c src/"
   },
   "engines": {
-    "node": ">0.8.x <=1.0.0"
+    "node": ">0.8.x"
   },
   "dependencies": {},
   "devDependencies": {
