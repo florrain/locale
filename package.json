@@ -1,12 +1,12 @@
 {
-  "author": "Jed Schmidt <tr@nslator.jp> (http://jed.is)",
+  "author": "Florian Lorrain",
   "name": "locale",
   "description": "Browser locale negotiation for node.js",
-  "version": "0.0.21",
-  "homepage": "https://github.com/jed/locale",
+  "version": "0.1.0",
+  "homepage": "https://github.com/florrain/locale",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jed/locale.git"
+    "url": "git://github.com/florrain/locale.git"
   },
   "main": "./lib",
   "scripts": {
@@ -23,6 +23,7 @@
     "mocha": "~1.13.0"
   },
   "contributors": [
+    "Jed Smith <where@jed.is> (https://github.com/jed)"
     "D. Stuart Freeman <stuart.freeman@et.gatech.edu> (https://github.com/stuartf)"
   ]
 }
