@@ -23,7 +23,7 @@
     "mocha": "~1.13.0"
   },
   "contributors": [
-    "Jed Smith <where@jed.is> (https://github.com/jed)"
+    "Jed Smith <where@jed.is> (https://github.com/jed)",
     "D. Stuart Freeman <stuart.freeman@et.gatech.edu> (https://github.com/stuartf)"
   ]
 }
