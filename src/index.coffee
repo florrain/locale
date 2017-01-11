@@ -91,9 +91,6 @@ class app.Locales
 
       if normalizedIndex? then return setLocale(locales[normalizedIndex])
       else if languageIndex? then return setLocale(locales[languageIndex])
-      else
-        for l in locales
-          if l.language == item.language then return setLocale(l)
 
     locale
 
