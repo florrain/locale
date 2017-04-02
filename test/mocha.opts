@@ -1,0 +1,2 @@
+--reporter spec
+--compilers js:babel-core/register
