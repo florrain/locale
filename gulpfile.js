@@ -24,7 +24,7 @@ gulp.task('build', ['clean'], function () {
       presets: ['es2015'],
     }))
     .pipe(uglify())
-    .pipe(concat('min.js'))
+    .pipe(concat('locale.min.js'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('dist'));
 });
