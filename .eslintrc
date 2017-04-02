@@ -1,0 +1,8 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "func-names": ["error", "never"],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "prefer-arrow-callback": 0
+  }
+}
