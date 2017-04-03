@@ -5,6 +5,8 @@ locale is a [node.js][node] module for negotiating HTTP locales for incoming bro
 
 It works like this: you (optionally) tell it the languages you support, and it figures out the best one to use for each incoming request from a browser. So if you support `en`, `en_US`, `ja`, `kr`, and `zh_TW`, and a request comes in that accepts `en_UK` or `en`, locale will figure out that `en` is the best language to use.
 
+Sources should be compatible with Node >= 0.8 but the dev environment needs Node >= 4.
+
 Examples
 --------
 
