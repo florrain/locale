@@ -1,4 +1,3 @@
-// const http = require('http');
 const express = require('express'); // eslint-disable-line import/no-extraneous-dependencies
 
 const locale = require('../src');
