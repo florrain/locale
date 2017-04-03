@@ -99,7 +99,7 @@ Sources are ES2015 compliant and transpiled via Babel.
 
 Copyright
 ---------
-This project is licensed under the MIT license, Copyright (c) 2017 Maximilian Stoiber. For more information see LICENSE.md.
+This project is licensed under the MIT license. For more information see LICENSE.md.
 
 Credits to [jed](https://github.com/jed) who was the initial maintainer of the package.
 
