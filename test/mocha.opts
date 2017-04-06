@@ -1,2 +1,2 @@
 --reporter spec
---compilers coffee:coffee-script
+--compilers js:babel-core/register
