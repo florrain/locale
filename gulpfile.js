@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var mocha = require('gulp-mocha');
 var gutil = require('gulp-util');
