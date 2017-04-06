@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git://github.com/florrain/locale.git"
   },
-  "main": "./src",
+  "main": "./dist/locale.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha ./test/tests.js",
     "prepublish": "gulp build"

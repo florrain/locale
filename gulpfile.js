@@ -11,26 +11,27 @@ var del = require('del');
 var paths = {
   scripts: ['src/**.js'],
   tests: ['test/tests.js'],
+  dist: {
+    folder: 'dist',
+    file: 'locale.js'
+  }
 };
 
 gulp.task('clean', function () {
-  return del(['build']);
+  return del([paths.dist.folder]);
 });
 
-gulp.task('build', ['clean'], function () {
+gulp.task('build', ['lint', 'clean'], function () {
   return gulp.src(paths.scripts)
-    .pipe(sourcemaps.init())
     .pipe(babel({
       presets: ['es2015'],
     }))
-    .pipe(uglify())
-    .pipe(concat('locale.min.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist'));
+    .pipe(concat(paths.dist.file))
+    .pipe(gulp.dest(paths.dist.folder));
 });
 
 gulp.task('lint', function () {
-  return gulp.src(['**/*.js', '!node_modules/**', '!dist/**'])
+  return gulp.src(paths.scripts)
       .pipe(eslint())
       .pipe(eslint.format())
       .pipe(eslint.failAfterError());
