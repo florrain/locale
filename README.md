@@ -34,9 +34,10 @@ var http = require("http")
   , express = require("express")
   , locale = require("locale")
   , supported = ["en", "en_US", "ja"]
+  , default = "en",
   , app = express()
 
-app.use(locale(supported))
+app.use(locale(supported, default))
 
 app.get("/", function(req, res) {
   res.header("Content-Type", "text/plain")
@@ -61,7 +62,7 @@ Install
 API
 ---
 
-### locale(supportedLocales)
+### locale(supportedLocales, default)
 
 This module exports a function that can be used as Express/Connect middleware. It takes one argument, a list of supported locales, and adds a `locale` property to incoming HTTP requests, reflecting the most appropriate locale determined using the `best` method described below.
 
