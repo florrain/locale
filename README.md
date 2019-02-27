@@ -88,6 +88,39 @@ This method takes the target locale and compares it against the optionally provi
     (new locale.Locales('en_US')).best(supported).toString();  // 'en_US'
     (new locale.Locales('jp')).best(supported);                // supported.default || locale.Locale["default"]
 
+#### Locale object API
+
+The actual return value of calling `locales.best([supportedLocales])` or `new locale.Locale(languageTag)` is a Locale object. This Locale object has its own interface with the following properties and methods:
+
+```
+Locale object
+
+{
+  /* properties */
+  code: string // returns user-generated input used to construct the Locale. Eg, `en-US`
+  langauge: string // returns the first 2 letters of the code, lowercased
+  country: string // returns the second 2 letters of the code if present, uppercased. Returns `undefined` otherwise
+  normalized: string // returns the language, followed by a `_` and the country, if the country is present
+
+  /* methods */
+  toString(): string // returns the code
+  toJSON(): string // returns the code
+}
+```
+
+For example:
+
+```javascript
+var locale = new locale.Locale('pt-BR');
+
+console.log(locale);
+// {
+//   code: 'pt-BR',
+//   language: 'pt',
+//   country: 'BR',
+//   normalized: 'pt_BR',
+// }
+```
 
 Copyright
 ---------
