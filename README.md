@@ -82,23 +82,25 @@ The Locales constructor takes a string compliant with the [`Accept-Language` HTT
 
 This method takes the target locale and compares it against the optionally provided list of supported locales, and returns the most appropriate locale based on the quality scores of the target locale.  If no exact match exists (i.e. language+country) then it will fallback to `language` if supported, or if the language isn't supported it will return the default locale.
 
-    supported = new locale.Locales(['en', 'en_US'], 'en');
-    (new locale.Locales('en')).best(supported).toString();     // 'en'
-    (new locale.Locales('en_GB')).best(supported).toString();  // 'en'
-    (new locale.Locales('en_US')).best(supported).toString();  // 'en_US'
-    (new locale.Locales('jp')).best(supported);                // supported.default || locale.Locale["default"]
+```js
+supported = new locale.Locales(['en', 'en_US'], 'en');
+(new locale.Locales('en')).best(supported).toString();     // 'en'
+(new locale.Locales('en_GB')).best(supported).toString();  // 'en'
+(new locale.Locales('en_US')).best(supported).toString();  // 'en_US'
+(new locale.Locales('jp')).best(supported);                // supported.default || locale.Locale["default"]
+```
 
 #### Locale object API
 
 The actual return value of calling `locales.best([supportedLocales])` or `new locale.Locale(languageTag)` is a Locale object. This Locale object has its own interface with the following properties and methods:
 
-```
+```js
 Locale object
 
 {
   /* properties */
   code: string // returns user-generated input used to construct the Locale. Eg, `en-US`
-  langauge: string // returns the first 2 letters of the code, lowercased
+  language: string // returns the first 2 letters of the code, lowercased
   country: string // returns the second 2 letters of the code if present, uppercased. Returns `undefined` otherwise
   normalized: string // returns the language, followed by a `_` and the country, if the country is present
 
